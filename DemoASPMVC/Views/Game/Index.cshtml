@@ -1,0 +1,64 @@
+﻿@using DemoASPMVC.Tools;
+@model IEnumerable<DemoASPMVC.Models.Game>
+@inject SessionManager session;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@if (session.ConnectedUser is not null)
+{
+    <p>Bonjour @session.ConnectedUser.Nickname</p>
+    @if (session.ConnectedUser.RoleName == "Admin")
+    {
+        <p>
+            <a asp-action="Create">Create New</a>
+        </p>
+    }
+}
+
+
+<p class="text-danger">@TempData["error"]</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+           
+            <td>
+                
+                    @Html.ActionLink("Details", "Details", new { id=item.Id  }) |
+                    @if (session.ConnectedUser is not null)
+                    {
+                        @Html.ActionLink("Favoris", "AddFavorite", new { id=item.Id  })
+                    
+                    }
+                    @if(session.ConnectedUser is not null && session.ConnectedUser.RoleName == "Admin")
+                    {
+                        @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+                        
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

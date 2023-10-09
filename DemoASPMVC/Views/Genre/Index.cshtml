@@ -1,0 +1,41 @@
+﻿@using DemoASPMVC.Tools;
+@model IEnumerable<DemoASPMVC_DAL.Models.Genre>
+@inject SessionManager session;
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+@if (session.ConnectedUser is not null && session.ConnectedUser.RoleName == "Admin")
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Label)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Label)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Liste des jeux", "Details", new {  id=item.Id  }) |
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

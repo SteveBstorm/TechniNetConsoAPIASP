@@ -1,0 +1,29 @@
+﻿@model IEnumerable<string>
+@{
+    int myValue = 42;
+    ViewData["Title"] = "Privacy Policy";
+    
+
+}
+<h1>@ViewData["Title"]</h1>
+
+<h3>Ma valeur vaut : @myValue </h3>
+
+@foreach(string s in Model)
+{
+    <p>@s</p>
+}
+
+<p>Use this page to detail your site's privacy policy.</p>
+
+<ul>
+@for(int i = 0; i < 10; i++)
+{
+    <li>@(i*2)</li>
+}
+</ul>
+
+@if(myValue == 42)
+{
+    <p>eeeeeeeeeeeeeeeeeeeeeee</p>
+}
